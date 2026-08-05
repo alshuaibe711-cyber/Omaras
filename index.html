@@ -370,7 +370,8 @@
 <!-- ============ SUPABASE SCRIPT ============ -->  
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>  
 <script>  
-const SUPABASE_URL = "https://vhnvjcioximacfsogmrka.supabase.co";  
+// تم تصحيح الرابط بدقة!
+const SUPABASE_URL = "https://vhnvjcioxmacfsogmrka.supabase.co";  
 const SUPABASE_ANON_KEY = "sb_publishable_oqvyjt2eMRXeLKS-u7ahpQ_EhmoZR2t";  
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
   
@@ -398,13 +399,13 @@ async function fetchProducts() {
   try {
     const { data, error } = await client.from('products').select('*').order('created_at', { ascending: false });
     if (error) {
-      alert("خطأ في جلب المنتجات من قاعدة البيانات: " + error.message);
+      console.error(error);
     } else if (data) {
       products = data;
       renderCategories(); renderProducts(); renderAdminProducts();
     }
   } catch (err) {
-    alert("فشل الاتصال: " + err.message);
+    console.error(err);
   }
 }
 
@@ -422,7 +423,7 @@ async function fetchSettings() {
   try {
     const { data, error } = await client.from('settings').select('*');
     if (error) {
-       alert("خطأ في جلب الإعدادات: " + error.message);
+       console.error(error);
     } else if (data) {
       const payDoc = data.find(d => d.id === 'payment');
       const genDoc = data.find(d => d.id === 'general');
@@ -606,7 +607,7 @@ async function adminLogin(){
     const { data, error } = await client.from('settings').select('data').eq('id', 'admin').single();
     
     if(error) {
-      alert("خطأ أثناء تسجيل الدخول: " + error.message);
+      alert("خطأ أثناء الاتصال: " + error.message);
       return;
     }
     
